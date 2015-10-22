@@ -40,6 +40,7 @@ public class MainAdapter extends BaseAdapter{
 		View view;
 		ViewHolder viewHolder;
 		MainItem item = mList.get(position);
+		//当convertView为空时，创建一个ViewHolder对象，并将控件的实例都存放在ViewHolder里，然后调用View的setTag()方法，将ViewHolder对象存储在View中。
 		if (convertView == null) {
 			view = inflater.inflate(R.layout.main_item, null);
 			viewHolder = new ViewHolder();
@@ -56,6 +57,7 @@ public class MainAdapter extends BaseAdapter{
 		return view;
 	}
 	
+	//内部类ViewHolder，用于对控件的实例进行缓存。
 	class ViewHolder{
 		ImageView imageView;
 		TextView textView;

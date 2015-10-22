@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class PeopleAdapter extends BaseAdapter{
-	private List<PeopleItem> mList;
+public class NewsAdapter extends BaseAdapter{
+	private List<NewsItem> mList;
 	private LayoutInflater inflater;
 	
-	public PeopleAdapter(Context context,List<PeopleItem> List){
+	public NewsAdapter(Context context,List<NewsItem> List){
 		mList = List;
 		inflater = LayoutInflater.from(context);
 	}
@@ -40,24 +40,24 @@ public class PeopleAdapter extends BaseAdapter{
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 			view = inflater.inflate(R.layout.people_item, null);
-			viewHolder.peopleName = (TextView) view.findViewById(R.id.people_name);	
-			viewHolder.peopleAge = (TextView) view.findViewById(R.id.people_age);
+			viewHolder.content = (TextView) view.findViewById(R.id.people_name);	
+			viewHolder.title = (TextView) view.findViewById(R.id.people_age);
 			view.setTag(viewHolder);
 			
 		}else {
 			view = convertView;
 			viewHolder = (ViewHolder) view.getTag();
 		}
-		PeopleItem peopleItem = mList.get(position);
-		viewHolder.peopleName.setText(peopleItem.name);
-		viewHolder.peopleAge.setText(peopleItem.age);
+		NewsItem newsItemItem = mList.get(position);
+		viewHolder.content.setText(newsItemItem.getTitle());
+		viewHolder.title.setText(newsItemItem.getContent());
 		return view;
 	}
 	
 	//内部类，用于对控件的实例进行缓存。
 	class ViewHolder{
-		TextView peopleName;
-		TextView peopleAge;
+		TextView title;
+		TextView content;
 		
 	}
 
