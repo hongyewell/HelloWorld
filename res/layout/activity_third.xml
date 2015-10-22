@@ -5,13 +5,13 @@
     android:orientation="vertical" >
     
     
-    <ListView 
+    <com.handmark.pulltorefresh.library.PullToRefreshListView 
         android:id="@+id/peopleListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3">
         
-    </ListView>
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
     
      <TextView
         android:layout_width="match_parent"
