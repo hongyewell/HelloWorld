@@ -1,15 +1,20 @@
 package com.example.util;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +27,7 @@ import com.example.helloworld.NewsItem;
 
 public class WebUtil {
 	
-		 String myURL = "http://120.25.125.185/helloworld/HelloData";
+		 String myURL = "http://10.0.2.2:8080/helloworld/HelloData";
 		
 		public  List<NewsItem> getNewsInfo(){
 			List<NewsItem> mList = new ArrayList<NewsItem>();
@@ -34,6 +39,7 @@ public class WebUtil {
 					HttpResponse httpResponse = httpClient.execute(httpGet);
 					
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+						Log.i("yeye", "get运行了");
 						HttpEntity entity = httpResponse.getEntity();
 						String result = EntityUtils.toString(entity,"utf-8");
 						//JSON字符串解析
@@ -44,7 +50,6 @@ public class WebUtil {
 								NewsItem news = new NewsItem();
 								news.setTitle(nObject.getString("myTitle"));
 								news.setContent(nObject.getString("myContent"));
-								Log.i("ym", nObject.getString("myTitle"));
 								mList.add(news);
 							}
 						} catch (JSONException e) {
@@ -57,6 +62,32 @@ public class WebUtil {
 					e.printStackTrace();
 				}
 			return mList;
+			
+		}
+		
+		public void postNewsInfo(){
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost("http://10.0.2.2:8080/helloworld/PublishData");
+			List<NameValuePair> mList = new ArrayList<NameValuePair>();
+			mList.add(new BasicNameValuePair("title", "新标题呀"));
+			mList.add(new BasicNameValuePair("content", "新内容呀"));
+		
+				try {
+					httpPost.setEntity(new UrlEncodedFormEntity(mList,"utf-8"));
+					HttpResponse response = httpClient.execute(httpPost);
+					if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+						Log.i("yeye", "post运行了");
+					}
+					
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (ClientProtocolException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			
+			
 			
 		}
 		

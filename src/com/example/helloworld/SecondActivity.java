@@ -20,7 +20,7 @@ public class SecondActivity extends Activity {
 		setContentView(R.layout.activity_second);
 		List<People> peopleList = new ArrayList<People>();
 		for (int i = 0; i <4; i++) {
-			peopleList.add(new People(R.drawable.ic_launcher,"我是标题"+i,"我是内容"+i));
+			peopleList.add(new People(R.drawable.pig,"我是标题"+i,"我是内容"+i));
 		}
 	
 		ListView listView = (ListView) findViewById(R.id.myListView);

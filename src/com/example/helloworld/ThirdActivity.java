@@ -36,6 +36,8 @@ public class ThirdActivity extends Activity {
 			protected List<NewsItem> doInBackground(Void... arg0) {
 				WebUtil webUtil = new WebUtil();
 				aList = webUtil.getNewsInfo();
+				Log.i("ym", "×¼±¸..");
+			    webUtil.postNewsInfo();
 				return aList;
 			}
 			protected void onPostExecute(java.util.List<NewsItem> result) {

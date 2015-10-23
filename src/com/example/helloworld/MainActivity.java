@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.util.WebUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -18,6 +23,7 @@ public class MainActivity extends Activity {
 	private PullToRefreshListView lV;
 	private List<MainItem> mListItems;
 	private MainAdapter adapter;
+	private Button btnMain;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +31,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         mListItems = new ArrayList<MainItem>();
-        mListItems.add(new MainItem(R.drawable.ic_launcher, "hongyewell"));
+        mListItems.add(new MainItem(R.drawable.leaf, "hongyewell"));
         
         lV = (PullToRefreshListView) findViewById(R.id.mylv);
+        btnMain = (Button) findViewById(R.id.btn_main);
         
         adapter = new MainAdapter(MainActivity.this, mListItems);
         lV.setAdapter(adapter);
@@ -50,7 +57,7 @@ public class MainActivity extends Activity {
 					}
 					
 					protected void onPostExecute(Void result) {
-						MainItem mainItem = new MainItem(R.drawable.ic_launcher, "geek_ymv");
+						MainItem mainItem = new MainItem(R.drawable.pig, "geek_ymv");
 						mListItems.add(0,mainItem);
 						adapter.notifyDataSetChanged();
 						lV.onRefreshComplete();
@@ -62,6 +69,15 @@ public class MainActivity extends Activity {
 			}
 		});
       
+        btnMain.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				
+				Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+				startActivity(intent);
+			}
+		});
     }
 
 }
