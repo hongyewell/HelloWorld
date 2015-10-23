@@ -2,6 +2,9 @@ package com.example.helloworld;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.adapter.MyAdapter;
+import com.example.pojo.People;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

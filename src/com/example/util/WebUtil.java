@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.example.helloworld.NewsItem;
+import com.example.pojo.NewsItem;;
 
 
 public class WebUtil {
@@ -65,18 +65,18 @@ public class WebUtil {
 			
 		}
 		
-		public void postNewsInfo(){
+		public void postNewsInfo(String title,String content){
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost("http://10.0.2.2:8080/helloworld/PublishData");
 			List<NameValuePair> mList = new ArrayList<NameValuePair>();
-			mList.add(new BasicNameValuePair("title", "新标题呀"));
-			mList.add(new BasicNameValuePair("content", "新内容呀"));
+			mList.add(new BasicNameValuePair("title", title));
+			mList.add(new BasicNameValuePair("content", content));
 		
 				try {
 					httpPost.setEntity(new UrlEncodedFormEntity(mList,"utf-8"));
 					HttpResponse response = httpClient.execute(httpPost);
 					if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						Log.i("yeye", "post运行了");
+						Log.i("yeye", "我开始接受了.."+title+content);
 					}
 					
 				} catch (UnsupportedEncodingException e) {
