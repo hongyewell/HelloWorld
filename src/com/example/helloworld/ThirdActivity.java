@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.adapter.NewsAdapter;
@@ -21,12 +25,14 @@ public class ThirdActivity extends Activity {
 	private List<NewsItem> aList = new ArrayList<NewsItem>();
 	private PullToRefreshListView mListView;
 	private NewsAdapter adapter;
+	private Button btnSubmit;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_third);
 		mListView = (PullToRefreshListView) findViewById(R.id.peopleListView);
+		btnSubmit = (Button) findViewById(R.id.btn_submit);
 		//异步消息处理封装类 AsyncTask
 		new AsyncTask<Void, Void,List<NewsItem>>() {
 
@@ -73,6 +79,14 @@ public class ThirdActivity extends Activity {
 			}
 		});
 		
+		btnSubmit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(ThirdActivity.this,PostInfoActivity.class);
+				startActivity(intent);
+			}
+		});
 		/*//子线程访问网络,匿名类
 		new Thread(new Runnable() {
 			

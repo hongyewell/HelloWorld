@@ -26,7 +26,7 @@ public class PostInfoActivity extends Activity{
 		postInfoButton = (Button) findViewById(R.id.btn_postInfo);
 		editTitle = (EditText) findViewById(R.id.edit_title);
 		editContent = (EditText) findViewById(R.id.edit_content);
-
+		
 		postInfoButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -46,7 +46,7 @@ public class PostInfoActivity extends Activity{
 					
 				}.execute();
 				//Ìø×ªÖÁÖ÷Ò³...
-				Intent intent = new Intent(PostInfoActivity.this,MainActivity.class);
+				Intent intent = new Intent(PostInfoActivity.this,ThirdActivity.class);
 				startActivity(intent);
 			}
 		});

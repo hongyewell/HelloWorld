@@ -27,15 +27,16 @@ import com.example.pojo.NewsItem;;
 
 public class WebUtil {
 	
-		 String myURL = "http://10.0.2.2:8080/helloworld/HelloData";
-		
+		 //String myURL = "http://10.0.2.2:8080/helloworld/HelloData";
+		 String getURL = "http://120.25.125.185/helloworld/HelloData";
+		 String postURL = "http://120.25.125.185/helloworld/PublishData";	
 		public  List<NewsItem> getNewsInfo(){
 			List<NewsItem> mList = new ArrayList<NewsItem>();
 				
 				try {
 					//HttpClient是一个接口，无法创建它的实例，通常情况下都会创建一个DefaultHttpClient的实例
 					HttpClient httpClient = new DefaultHttpClient();
-					HttpGet httpGet =  new HttpGet(myURL);
+					HttpGet httpGet =  new HttpGet(getURL);
 					HttpResponse httpResponse = httpClient.execute(httpGet);
 					
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -67,7 +68,7 @@ public class WebUtil {
 		
 		public void postNewsInfo(String title,String content){
 			HttpClient httpClient = new DefaultHttpClient();
-			HttpPost httpPost = new HttpPost("http://10.0.2.2:8080/helloworld/PublishData");
+			HttpPost httpPost = new HttpPost(postURL);
 			List<NameValuePair> mList = new ArrayList<NameValuePair>();
 			mList.add(new BasicNameValuePair("title", title));
 			mList.add(new BasicNameValuePair("content", content));

@@ -13,14 +13,15 @@
         
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
     
-     <TextView
+     <Button
+         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="这是第三个页面">
+        android:text="发布一个呗~">
         
-    </TextView>
+    </Button>
     
 
 </LinearLayout>
