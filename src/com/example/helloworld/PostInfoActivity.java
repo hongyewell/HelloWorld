@@ -1,5 +1,8 @@
 package com.example.helloworld;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,7 +19,9 @@ public class PostInfoActivity extends Activity{
 	private Button postInfoButton;
 	private EditText editTitle;
 	private EditText editContent;
-	private String inputTitle,inputContent;
+	private EditText editAuthor;
+	private String inputTitle,inputContent,inputAuthor;
+	private String  inputTime;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,7 @@ public class PostInfoActivity extends Activity{
 		postInfoButton = (Button) findViewById(R.id.btn_postInfo);
 		editTitle = (EditText) findViewById(R.id.edit_title);
 		editContent = (EditText) findViewById(R.id.edit_content);
+		editAuthor = (EditText) findViewById(R.id.edit_author);
 		
 		postInfoButton.setOnClickListener(new OnClickListener() {
 			
@@ -39,8 +45,12 @@ public class PostInfoActivity extends Activity{
 					protected Void doInBackground(Void... arg0) {
 						inputTitle = editTitle.getText().toString();
 						inputContent = editContent.getText().toString();
+						inputAuthor = editAuthor.getText().toString();
+						Date date = new Date();
+						SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						inputTime = simpleDate.format(date);
 						WebUtil webUtil = new WebUtil();
-						webUtil.postNewsInfo(inputTitle, inputContent);
+						webUtil.postNewsInfo(inputTitle, inputContent,inputAuthor,inputTime);
 						return null;
 					}
 					

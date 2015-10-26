@@ -42,9 +42,11 @@ public class NewsAdapter extends BaseAdapter{
 		ViewHolder viewHolder;
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
-			view = inflater.inflate(R.layout.people_item, null);
-			viewHolder.content = (TextView) view.findViewById(R.id.people_name);	
-			viewHolder.title = (TextView) view.findViewById(R.id.people_age);
+			view = inflater.inflate(R.layout.news_item, null);
+			viewHolder.title = (TextView) view.findViewById(R.id.news_title);
+			viewHolder.content = (TextView) view.findViewById(R.id.news_content);	
+			viewHolder.author = (TextView) view.findViewById(R.id.news_author);
+			viewHolder.time = (TextView) view.findViewById(R.id.news_time);
 			view.setTag(viewHolder);
 			
 		}else {
@@ -52,8 +54,12 @@ public class NewsAdapter extends BaseAdapter{
 			viewHolder = (ViewHolder) view.getTag();
 		}
 		NewsItem newsItemItem = mList.get(position);
-		viewHolder.content.setText(newsItemItem.getTitle());
-		viewHolder.title.setText(newsItemItem.getContent());
+		
+		viewHolder.title.setText(newsItemItem.getTitle());
+		viewHolder.content.setText(newsItemItem.getContent());
+		viewHolder.author.setText(newsItemItem.getAuthor());
+		viewHolder.time.setText(newsItemItem.getTime());
+
 		return view;
 	}
 	
@@ -61,6 +67,8 @@ public class NewsAdapter extends BaseAdapter{
 	class ViewHolder{
 		TextView title;
 		TextView content;
+		TextView author;
+		TextView time;
 		
 	}
 

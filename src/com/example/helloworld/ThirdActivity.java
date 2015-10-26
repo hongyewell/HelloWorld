@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.adapter.NewsAdapter;
 import com.example.pojo.NewsItem;
@@ -33,6 +34,10 @@ public class ThirdActivity extends Activity {
 		setContentView(R.layout.activity_third);
 		mListView = (PullToRefreshListView) findViewById(R.id.peopleListView);
 		btnSubmit = (Button) findViewById(R.id.btn_submit);
+		
+		Intent intent = getIntent();
+		String username = intent.getStringExtra("username");
+		Toast.makeText(ThirdActivity.this, username, Toast.LENGTH_SHORT).show();
 		//异步消息处理封装类 AsyncTask
 		new AsyncTask<Void, Void,List<NewsItem>>() {
 
@@ -69,12 +74,11 @@ public class ThirdActivity extends Activity {
 						return null;
 					}
 					protected void onPostExecute(Void result) {
-						NewsItem newsItem = new NewsItem("我是新标题", "我是新内容");
+						NewsItem newsItem = new NewsItem("我是新标题", "我是新内容","我是发布人","我是发布时间");
 						aList.add(0,newsItem);
 						adapter.notifyDataSetChanged();
 						mListView.onRefreshComplete();
 					};
-					
 				}.execute();
 			}
 		});

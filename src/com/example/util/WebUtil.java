@@ -22,14 +22,16 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.example.pojo.NewsItem;;
+import com.example.pojo.NewsItem;
+import com.google.gson.Gson;
 
 
 public class WebUtil {
 	
-		 //String myURL = "http://10.0.2.2:8080/helloworld/HelloData";
-		 String getURL = "http://120.25.125.185/helloworld/HelloData";
-		 String postURL = "http://120.25.125.185/helloworld/PublishData";	
+	//String getURL = "http://120.25.125.185/helloworld/HelloData";
+		 String getURL = "http://10.0.2.2:8080/helloworld/HelloData";
+		 String postURL = "http://10.0.2.2:8080/helloworld/PublishData";
+		 String loginURL = "http://10.0.2.2:8080/helloworld/LoginController";
 		public  List<NewsItem> getNewsInfo(){
 			List<NewsItem> mList = new ArrayList<NewsItem>();
 				
@@ -51,6 +53,8 @@ public class WebUtil {
 								NewsItem news = new NewsItem();
 								news.setTitle(nObject.getString("myTitle"));
 								news.setContent(nObject.getString("myContent"));
+								news.setAuthor(nObject.getString("myAuthor"));
+								news.setTime(nObject.getString("myTime"));
 								mList.add(news);
 							}
 						} catch (JSONException e) {
@@ -66,12 +70,14 @@ public class WebUtil {
 			
 		}
 		
-		public void postNewsInfo(String title,String content){
+		public void postNewsInfo(String title,String content,String author, String time){
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(postURL);
 			List<NameValuePair> mList = new ArrayList<NameValuePair>();
 			mList.add(new BasicNameValuePair("title", title));
 			mList.add(new BasicNameValuePair("content", content));
+			mList.add(new BasicNameValuePair("author", author));
+			mList.add(new BasicNameValuePair("time", time));
 		
 				try {
 					httpPost.setEntity(new UrlEncodedFormEntity(mList,"utf-8"));
@@ -87,9 +93,36 @@ public class WebUtil {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			
-			
-			
+		}
+		
+		public String userLogin(String username,String password){
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(loginURL);
+			List<NameValuePair> user = new ArrayList<NameValuePair>();
+			user.add(new BasicNameValuePair("username", username));
+			user.add(new BasicNameValuePair("password", password));
+			try {
+				httpPost.setEntity(new UrlEncodedFormEntity(user,"utf-8"));
+				try {
+					HttpResponse response = httpClient.execute(httpPost);
+					if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+						Log.i("yeye", "µÇÂ¼³É¹¦");
+						HttpEntity entity = response.getEntity();
+						String result = EntityUtils.toString(entity,"utf-8");
+						Gson gson = new Gson();
+						String state = gson.fromJson(result, String.class);
+						return state;
+					}
+				} catch (ClientProtocolException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 		
 }
