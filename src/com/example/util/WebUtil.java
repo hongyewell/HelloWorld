@@ -29,11 +29,11 @@ import com.google.gson.Gson;
 
 public class WebUtil {
 	
-	//String getURL = "http://120.25.125.185/helloworld/HelloData";
-		 String getURL = "http://10.0.2.2:8080/helloworld/HelloData";
-		 String postURL = "http://10.0.2.2:8080/helloworld/PublishData";
-		 String loginURL = "http://10.0.2.2:8080/helloworld/LoginController";
-		 String NewsDetailURL = "http://10.0.2.2:8080/helloworld/NewsDetailController";
+	//String getURL = "http://10.0.2.2:8080/helloworld/HelloData";
+		 String getURL = "http://120.25.125.185/helloworld/HelloData";
+		 String postURL = "http://120.25.125.185/helloworld/PublishData";
+		 String loginURL = "http://120.25.125.185/helloworld/LoginController";
+		 String NewsDetailURL = "http://120.25.125.185/helloworld/NewsDetailController";
 		 
 		public  List<NewsItem> getNewsInfo(){
 			List<NewsItem> mList = new ArrayList<NewsItem>();

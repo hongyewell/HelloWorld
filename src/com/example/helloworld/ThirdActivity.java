@@ -48,7 +48,7 @@ public class ThirdActivity extends Activity {
 		
 		Intent intent = getIntent();
 		username = intent.getStringExtra("username");
-		tvUserName.setText("hello~"+username);
+		tvUserName.setText("hello~"+username+"~");
 /*		Toast.makeText(ThirdActivity.this, username, Toast.LENGTH_SHORT).show();*/
 		//异步消息处理封装类 AsyncTask
 		new AsyncTask<Void, Void,List<NewsItem>>() {
