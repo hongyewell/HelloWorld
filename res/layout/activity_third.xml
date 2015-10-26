@@ -4,18 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <TextView />
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="欢迎登录..."
+        android:textSize="14sp"/>
     
     <com.handmark.pulltorefresh.library.PullToRefreshListView 
         android:id="@+id/peopleListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3">
+        android:layout_marginTop="10dp"
+        android:layout_weight="5">
         
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
     
      <Button
-         android:id="@+id/btn_submit"
+        android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"

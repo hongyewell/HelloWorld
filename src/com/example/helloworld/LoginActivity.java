@@ -50,6 +50,9 @@ public class LoginActivity extends Activity {
 							intent.putExtra("username", username);
 							startActivity(intent);
 						}
+						else {
+							Toast.makeText(LoginActivity.this, "亲，请检查用户名或密码是否正确~", Toast.LENGTH_SHORT).show();
+						}
 					};
 				}.execute();
 				

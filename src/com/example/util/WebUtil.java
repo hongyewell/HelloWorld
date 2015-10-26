@@ -1,6 +1,7 @@
 package com.example.util;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class WebUtil {
 		 String getURL = "http://10.0.2.2:8080/helloworld/HelloData";
 		 String postURL = "http://10.0.2.2:8080/helloworld/PublishData";
 		 String loginURL = "http://10.0.2.2:8080/helloworld/LoginController";
+		 String NewsDetailURL = "http://10.0.2.2:8080/helloworld/NewsDetailController";
+		 
 		public  List<NewsItem> getNewsInfo(){
 			List<NewsItem> mList = new ArrayList<NewsItem>();
 				
@@ -42,7 +45,7 @@ public class WebUtil {
 					HttpResponse httpResponse = httpClient.execute(httpGet);
 					
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						Log.i("yeye", "get运行了");
+						/*Log.i("yeye", "get运行了");*/
 						HttpEntity entity = httpResponse.getEntity();
 						String result = EntityUtils.toString(entity,"utf-8");
 						//JSON字符串解析
@@ -51,6 +54,7 @@ public class WebUtil {
 							for (int i = 0; i < jsonArray.length(); i++) {
 								JSONObject nObject = (JSONObject) jsonArray.get(i);
 								NewsItem news = new NewsItem();
+								news.setId(nObject.getInt("myId"));
 								news.setTitle(nObject.getString("myTitle"));
 								news.setContent(nObject.getString("myContent"));
 								news.setAuthor(nObject.getString("myAuthor"));
@@ -69,6 +73,46 @@ public class WebUtil {
 			return mList;
 			
 		}
+		/**
+		 * 获取信息详情
+		 * @param newsId
+		 * @return newsItem
+		 */
+		public NewsItem getNewsDeatil(int newsId){
+			NewsItem newsItem = new NewsItem();
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(NewsDetailURL);
+			List<NameValuePair> mList = new ArrayList<NameValuePair>();
+			mList.add(new BasicNameValuePair("newsId", String.valueOf(newsId)));
+			try {
+				httpPost.setEntity(new UrlEncodedFormEntity(mList,"utf-8"));
+				HttpResponse httpResponse = httpClient.execute(httpPost);
+				if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+					HttpEntity entity = httpResponse.getEntity();
+					String result = EntityUtils.toString(entity,"utf-8");
+					try {
+						JSONObject nObject = new JSONObject(result);
+						newsItem.setId(nObject.getInt("myId"));
+						newsItem.setTitle(nObject.getString("myTitle"));
+						newsItem.setContent(nObject.getString("myContent"));
+						newsItem.setAuthor(nObject.getString("myAuthor"));
+						newsItem.setTime(nObject.getString("myTime"));
+						return newsItem;
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					/*Gson gson = new Gson();
+					newsItem = gson.fromJson(result,NewsItem.class);*/
+					Log.i("yeye", "发送成功...");
+					
+				}
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return newsItem;
+		}
 		
 		public void postNewsInfo(String title,String content,String author, String time){
 			HttpClient httpClient = new DefaultHttpClient();
@@ -83,7 +127,7 @@ public class WebUtil {
 					httpPost.setEntity(new UrlEncodedFormEntity(mList,"utf-8"));
 					HttpResponse response = httpClient.execute(httpPost);
 					if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						Log.i("yeye", "我开始接受了.."+title+content);
+						/*Log.i("yeye", "我开始接受了.."+title+content);*/
 					}
 					
 				} catch (UnsupportedEncodingException e) {
@@ -106,7 +150,7 @@ public class WebUtil {
 				try {
 					HttpResponse response = httpClient.execute(httpPost);
 					if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						Log.i("yeye", "登录成功");
+						/*Log.i("yeye", "登录成功");*/
 						HttpEntity entity = response.getEntity();
 						String result = EntityUtils.toString(entity,"utf-8");
 						Gson gson = new Gson();
@@ -124,5 +168,6 @@ public class WebUtil {
 			}
 			return null;
 		}
+		
 		
 }

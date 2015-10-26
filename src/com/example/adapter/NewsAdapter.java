@@ -44,7 +44,6 @@ public class NewsAdapter extends BaseAdapter{
 			viewHolder = new ViewHolder();
 			view = inflater.inflate(R.layout.news_item, null);
 			viewHolder.title = (TextView) view.findViewById(R.id.news_title);
-			viewHolder.content = (TextView) view.findViewById(R.id.news_content);	
 			viewHolder.author = (TextView) view.findViewById(R.id.news_author);
 			viewHolder.time = (TextView) view.findViewById(R.id.news_time);
 			view.setTag(viewHolder);
@@ -56,7 +55,6 @@ public class NewsAdapter extends BaseAdapter{
 		NewsItem newsItemItem = mList.get(position);
 		
 		viewHolder.title.setText(newsItemItem.getTitle());
-		viewHolder.content.setText(newsItemItem.getContent());
 		viewHolder.author.setText(newsItemItem.getAuthor());
 		viewHolder.time.setText(newsItemItem.getTime());
 
@@ -65,8 +63,8 @@ public class NewsAdapter extends BaseAdapter{
 	
 	//内部类，用于对控件的实例进行缓存。
 	class ViewHolder{
+		
 		TextView title;
-		TextView content;
 		TextView author;
 		TextView time;
 		

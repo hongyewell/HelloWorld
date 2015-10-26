@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.util.WebUtil;
 
@@ -19,8 +20,7 @@ public class PostInfoActivity extends Activity{
 	private Button postInfoButton;
 	private EditText editTitle;
 	private EditText editContent;
-	private EditText editAuthor;
-	private String inputTitle,inputContent,inputAuthor;
+	private String inputTitle,inputContent,username;
 	private String  inputTime;
 	
 	@Override
@@ -31,33 +31,41 @@ public class PostInfoActivity extends Activity{
 		postInfoButton = (Button) findViewById(R.id.btn_postInfo);
 		editTitle = (EditText) findViewById(R.id.edit_title);
 		editContent = (EditText) findViewById(R.id.edit_content);
-		editAuthor = (EditText) findViewById(R.id.edit_author);
+		Intent intent = getIntent();
+	    username = intent.getStringExtra("username");
 		
 		postInfoButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
+				inputTitle = editTitle.getText().toString();
+				inputContent = editContent.getText().toString();
 				
-				/*Toast.makeText(PostInfoActivity.this, inputTitle, Toast.LENGTH_SHORT).show();*/		
-				new AsyncTask<Void, Void, Void>(){
+				if (inputTitle == null || inputTitle.length() <= 0 || inputContent == null || inputContent.length() <= 0) {
+					Toast.makeText(PostInfoActivity.this, "您可能还没输入标题或内容o(>﹏<)o",Toast.LENGTH_SHORT ).show();
+				}
+				else 
+				{
+					new AsyncTask<Void, Void, Void>(){
 
-					@Override
-					protected Void doInBackground(Void... arg0) {
-						inputTitle = editTitle.getText().toString();
-						inputContent = editContent.getText().toString();
-						inputAuthor = editAuthor.getText().toString();
-						Date date = new Date();
-						SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-						inputTime = simpleDate.format(date);
-						WebUtil webUtil = new WebUtil();
-						webUtil.postNewsInfo(inputTitle, inputContent,inputAuthor,inputTime);
-						return null;
-					}
-					
-				}.execute();
-				//跳转至主页...
-				Intent intent = new Intent(PostInfoActivity.this,ThirdActivity.class);
-				startActivity(intent);
+						@Override
+						protected Void doInBackground(Void... arg0) {
+							
+								Date date = new Date();
+								SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+								inputTime = simpleDate.format(date);
+								WebUtil webUtil = new WebUtil();
+								webUtil.postNewsInfo(inputTitle, inputContent,username,inputTime);
+							return null;
+						}
+						
+					}.execute();
+					//跳转至主页...
+					Intent intent = new Intent(PostInfoActivity.this,ThirdActivity.class);
+					intent.putExtra("username", username);
+					startActivity(intent);
+				}
+				
 			}
 		});
 	}
